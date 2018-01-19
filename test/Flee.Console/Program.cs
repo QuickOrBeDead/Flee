@@ -12,6 +12,8 @@ namespace Flee.Console
         {
             //Sample Scenario 1
             ExpressionContext context = new ExpressionContext();
+            context.ParserOptions.DecimalSeparator = '.';
+            context.ParserOptions.FunctionArgumentSeparator = ',';
             VariableCollection variables = context.Variables;
             variables.Add("a", 1);
             variables.Add("b", 1);

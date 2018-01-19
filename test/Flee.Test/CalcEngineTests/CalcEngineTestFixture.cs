@@ -129,8 +129,8 @@ namespace Flee.Test.CalcEngineTests
 
             ce.Add("x", "100 >> 2", context);
             ce.Recalculate("x");
-            var result = ce.GetResult<bool>("x");
-            Assert.IsTrue(result);
+            var result = ce.GetResult<int>("x");
+            Assert.AreEqual(25, result);
         }
 
         [Test]
