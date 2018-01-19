@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
+﻿using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
 
 namespace Flee.Parsing
 {
@@ -103,16 +99,16 @@ namespace Flee.Parsing
                     EnterIn((Token)node);
 
                     break;
+                case (int)ExpressionConstants.BETWEEN:
+                    EnterBetween((Token)node);
+
+                    break;
                 case (int)ExpressionConstants.DOT:
                     EnterDot((Token)node);
 
                     break;
                 case (int)ExpressionConstants.ARGUMENT_SEPARATOR:
                     EnterArgumentSeparator((Token)node);
-
-                    break;
-                case (int)ExpressionConstants.ARRAY_BRACES:
-                    EnterArrayBraces((Token)node);
 
                     break;
                 case (int)ExpressionConstants.LEFT_SHIFT:
@@ -167,14 +163,6 @@ namespace Flee.Parsing
                     EnterDatetime((Token)node);
 
                     break;
-                case (int)ExpressionConstants.IF:
-                    EnterIf((Token)node);
-
-                    break;
-                case (int)ExpressionConstants.CAST:
-                    EnterCast((Token)node);
-
-                    break;
                 case (int)ExpressionConstants.EXPRESSION:
                     EnterExpression((Production)node);
 
@@ -194,6 +182,9 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.NOT_EXPRESSION:
                     EnterNotExpression((Production)node);
 
+                    break;
+                case (int)ExpressionConstants.BETWEEN_EXPRESSION:
+                    EnterBetweenExpression((Production)node);
                     break;
                 case (int)ExpressionConstants.IN_EXPRESSION:
                     EnterInExpression((Production)node);
@@ -251,22 +242,6 @@ namespace Flee.Parsing
                     EnterFieldPropertyExpression((Production)node);
 
                     break;
-                case (int)ExpressionConstants.SPECIAL_FUNCTION_EXPRESSION:
-                    EnterSpecialFunctionExpression((Production)node);
-
-                    break;
-                case (int)ExpressionConstants.IF_EXPRESSION:
-                    EnterIfExpression((Production)node);
-
-                    break;
-                case (int)ExpressionConstants.CAST_EXPRESSION:
-                    EnterCastExpression((Production)node);
-
-                    break;
-                case (int)ExpressionConstants.CAST_TYPE_EXPRESSION:
-                    EnterCastTypeExpression((Production)node);
-
-                    break;
                 case (int)ExpressionConstants.INDEX_EXPRESSION:
                     EnterIndexExpression((Production)node);
 
@@ -295,7 +270,7 @@ namespace Flee.Parsing
         }
 
         /// <summary>
-        /// Called when exiting a parse tree node.the node being exited the node to add to the parse tree, or null if no parse tree should be created<
+        /// Called when exiting a parse tree node.the node being exited the node to add to the parse tree, or null if no parse tree should be created
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -366,15 +341,15 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.IN:
 
                     return ExitIn((Token)node);
+                case (int)ExpressionConstants.BETWEEN:
+
+                    return ExitBetween((Token)node);
                 case (int)ExpressionConstants.DOT:
 
                     return ExitDot((Token)node);
                 case (int)ExpressionConstants.ARGUMENT_SEPARATOR:
 
                     return ExitArgumentSeparator((Token)node);
-                case (int)ExpressionConstants.ARRAY_BRACES:
-
-                    return ExitArrayBraces((Token)node);
                 case (int)ExpressionConstants.LEFT_SHIFT:
 
                     return ExitLeftShift((Token)node);
@@ -414,12 +389,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.DATETIME:
 
                     return ExitDatetime((Token)node);
-                case (int)ExpressionConstants.IF:
-
-                    return ExitIf((Token)node);
-                case (int)ExpressionConstants.CAST:
-
-                    return ExitCast((Token)node);
                 case (int)ExpressionConstants.EXPRESSION:
 
                     return ExitExpression((Production)node);
@@ -435,6 +404,9 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.NOT_EXPRESSION:
 
                     return ExitNotExpression((Production)node);
+                case (int)ExpressionConstants.BETWEEN_EXPRESSION:
+
+                    return ExitBetweenExpression((Production)node);
                 case (int)ExpressionConstants.IN_EXPRESSION:
 
                     return ExitInExpression((Production)node);
@@ -477,18 +449,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.FIELD_PROPERTY_EXPRESSION:
 
                     return ExitFieldPropertyExpression((Production)node);
-                case (int)ExpressionConstants.SPECIAL_FUNCTION_EXPRESSION:
-
-                    return ExitSpecialFunctionExpression((Production)node);
-                case (int)ExpressionConstants.IF_EXPRESSION:
-
-                    return ExitIfExpression((Production)node);
-                case (int)ExpressionConstants.CAST_EXPRESSION:
-
-                    return ExitCastExpression((Production)node);
-                case (int)ExpressionConstants.CAST_TYPE_EXPRESSION:
-
-                    return ExitCastTypeExpression((Production)node);
                 case (int)ExpressionConstants.INDEX_EXPRESSION:
 
                     return ExitIndexExpression((Production)node);
@@ -538,6 +498,10 @@ namespace Flee.Parsing
                     break;
                 case (int)ExpressionConstants.NOT_EXPRESSION:
                     ChildNotExpression(node, child);
+
+                    break;
+                case (int)ExpressionConstants.BETWEEN_EXPRESSION:
+                    ChildBetweenExpression(node, child);
 
                     break;
                 case (int)ExpressionConstants.IN_EXPRESSION:
@@ -594,22 +558,6 @@ namespace Flee.Parsing
                     break;
                 case (int)ExpressionConstants.FIELD_PROPERTY_EXPRESSION:
                     ChildFieldPropertyExpression(node, child);
-
-                    break;
-                case (int)ExpressionConstants.SPECIAL_FUNCTION_EXPRESSION:
-                    ChildSpecialFunctionExpression(node, child);
-
-                    break;
-                case (int)ExpressionConstants.IF_EXPRESSION:
-                    ChildIfExpression(node, child);
-
-                    break;
-                case (int)ExpressionConstants.CAST_EXPRESSION:
-                    ChildCastExpression(node, child);
-
-                    break;
-                case (int)ExpressionConstants.CAST_TYPE_EXPRESSION:
-                    ChildCastTypeExpression(node, child);
 
                     break;
                 case (int)ExpressionConstants.INDEX_EXPRESSION:
@@ -829,6 +777,15 @@ namespace Flee.Parsing
             return node;
         }
 
+        public virtual void EnterBetween(Token node)
+        {
+        }
+
+        public virtual Node ExitBetween(Token node)
+        {
+            return node;
+        }
+
         public virtual void EnterDot(Token node)
         {
         }
@@ -973,24 +930,6 @@ namespace Flee.Parsing
             return node;
         }
 
-        public virtual void EnterIf(Token node)
-        {
-        }
-
-        public virtual Node ExitIf(Token node)
-        {
-            return node;
-        }
-
-        public virtual void EnterCast(Token node)
-        {
-        }
-
-        public virtual Node ExitCast(Token node)
-        {
-            return node;
-        }
-
         public virtual void EnterExpression(Production node)
         {
         }
@@ -1057,6 +996,20 @@ namespace Flee.Parsing
         }
 
         public virtual void ChildNotExpression(Production node, Node child)
+        {
+            node.AddChild(child);
+        }
+
+        public virtual void EnterBetweenExpression(Production node)
+        {
+        }
+
+        public virtual Node ExitBetweenExpression(Production node)
+        {
+            return node;
+        }
+
+        public virtual void ChildBetweenExpression(Production node, Node child)
         {
             node.AddChild(child);
         }
@@ -1254,62 +1207,6 @@ namespace Flee.Parsing
         }
 
         public virtual void ChildFieldPropertyExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
-        public virtual void EnterSpecialFunctionExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitSpecialFunctionExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildSpecialFunctionExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
-        public virtual void EnterIfExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitIfExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildIfExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
-        public virtual void EnterCastExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitCastExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildCastExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
-        public virtual void EnterCastTypeExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitCastTypeExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildCastTypeExpression(Production node, Node child)
         {
             node.AddChild(child);
         }

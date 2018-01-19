@@ -54,412 +54,419 @@ namespace Flee.Parsing
             ProductionPattern pattern = default(ProductionPattern);
             ProductionPatternAlternative alt = default(ProductionPatternAlternative);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.EXPRESSION), "Expression");
+            pattern = new ProductionPattern((int)ExpressionConstants.EXPRESSION,
+                "Expression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.XOR_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.XOR_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.XOR_EXPRESSION), "XorExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.XOR_EXPRESSION,
+                "XorExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.OR_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_1), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.OR_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_1, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.OR_EXPRESSION), "OrExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.OR_EXPRESSION,
+                "OrExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.AND_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_2), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.AND_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_2, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.AND_EXPRESSION), "AndExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.AND_EXPRESSION,
+                "AndExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.NOT_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_3), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.NOT_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_3, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.NOT_EXPRESSION), "NotExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.NOT_EXPRESSION,
+                "NotExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.NOT), 0, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.IN_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.NOT, 0, 1);
+            alt.AddProduction((int)ExpressionConstants.BETWEEN_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.IN_EXPRESSION), "InExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.BETWEEN_EXPRESSION,
+                "BetweenExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.COMPARE_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_4), 0, 1);
+            alt.AddProduction((int)ExpressionConstants.IN_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_4, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.IN_TARGET_EXPRESSION), "InTargetExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.IN_EXPRESSION,
+                "InExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.FIELD_PROPERTY_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.IN_LIST_TARGET_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.IN_LIST_TARGET_EXPRESSION), "InListTargetExpression");
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_PAREN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.ARGUMENT_LIST), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_PAREN), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.COMPARE_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_5, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.COMPARE_EXPRESSION), "CompareExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.IN_TARGET_EXPRESSION,
+                "InTargetExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.SHIFT_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_6), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.FIELD_PROPERTY_EXPRESSION, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int)ExpressionConstants.IN_LIST_TARGET_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.SHIFT_EXPRESSION), "ShiftExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.IN_LIST_TARGET_EXPRESSION,
+                "InListTargetExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.ADDITIVE_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_8), 0, -1);
+            alt.AddToken((int)ExpressionConstants.LEFT_PAREN, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.ARGUMENT_LIST, 1, 1);
+            alt.AddToken((int)ExpressionConstants.RIGHT_PAREN, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.ADDITIVE_EXPRESSION), "AdditiveExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.COMPARE_EXPRESSION,
+                "CompareExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MULTIPLICATIVE_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_10), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.SHIFT_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_7, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.MULTIPLICATIVE_EXPRESSION), "MultiplicativeExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.SHIFT_EXPRESSION,
+                "ShiftExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.POWER_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_12), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.ADDITIVE_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_9, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.POWER_EXPRESSION), "PowerExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.ADDITIVE_EXPRESSION,
+                "AdditiveExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.NEGATE_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_13), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.MULTIPLICATIVE_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_11, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.NEGATE_EXPRESSION), "NegateExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.MULTIPLICATIVE_EXPRESSION,
+                "MultiplicativeExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.SUB), 0, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MEMBER_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.POWER_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_13, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.MEMBER_EXPRESSION), "MemberExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.POWER_EXPRESSION,
+                "PowerExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.BASIC_EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_14), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.NEGATE_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_14, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.MEMBER_ACCESS_EXPRESSION), "MemberAccessExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.NEGATE_EXPRESSION,
+                "NegateExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.DOT), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MEMBER_FUNCTION_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.SUB, 0, 1);
+            alt.AddProduction((int)ExpressionConstants.MEMBER_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.BASIC_EXPRESSION), "BasicExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.MEMBER_EXPRESSION,
+                "MemberExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.LITERAL_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION_GROUP), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MEMBER_FUNCTION_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.SPECIAL_FUNCTION_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.BASIC_EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_15, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.MEMBER_FUNCTION_EXPRESSION), "MemberFunctionExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.MEMBER_ACCESS_EXPRESSION,
+                "MemberAccessExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.FIELD_PROPERTY_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.FUNCTION_CALL_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.FIELD_PROPERTY_EXPRESSION), "FieldPropertyExpression");
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IDENTIFIER), 1, 1);
+            alt.AddToken((int)ExpressionConstants.DOT, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.MEMBER_FUNCTION_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.SPECIAL_FUNCTION_EXPRESSION), "SpecialFunctionExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.BASIC_EXPRESSION,
+                "BasicExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.IF_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.LITERAL_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.CAST_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.EXPRESSION_GROUP, 1, 1);
             pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.IF_EXPRESSION), "IfExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IF), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_PAREN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_PAREN), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.MEMBER_FUNCTION_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.CAST_EXPRESSION), "CastExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.MEMBER_FUNCTION_EXPRESSION,
+                "MemberFunctionExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.CAST), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_PAREN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.CAST_TYPE_EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_PAREN), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.FIELD_PROPERTY_EXPRESSION, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int)ExpressionConstants.FUNCTION_CALL_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.CAST_TYPE_EXPRESSION), "CastTypeExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.FIELD_PROPERTY_EXPRESSION,
+                "FieldPropertyExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IDENTIFIER), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_15), 0, -1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ARRAY_BRACES), 0, 1);
+            alt.AddToken((int)ExpressionConstants.IDENTIFIER, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.INDEX_EXPRESSION), "IndexExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.INDEX_EXPRESSION,
+                "IndexExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_BRACE), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.ARGUMENT_LIST), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_BRACE), 1, 1);
+            alt.AddToken((int)ExpressionConstants.LEFT_BRACE, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.ARGUMENT_LIST, 1, 1);
+            alt.AddToken((int)ExpressionConstants.RIGHT_BRACE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.FUNCTION_CALL_EXPRESSION), "FunctionCallExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.FUNCTION_CALL_EXPRESSION,
+                "FunctionCallExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IDENTIFIER), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_PAREN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.ARGUMENT_LIST), 0, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_PAREN), 1, 1);
+            alt.AddToken((int)ExpressionConstants.IDENTIFIER, 1, 1);
+            alt.AddToken((int)ExpressionConstants.LEFT_PAREN, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.ARGUMENT_LIST, 0, 1);
+            alt.AddToken((int)ExpressionConstants.RIGHT_PAREN, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.ARGUMENT_LIST), "ArgumentList");
+            pattern = new ProductionPattern((int)ExpressionConstants.ARGUMENT_LIST,
+                "ArgumentList");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_16), 0, -1);
+            alt.AddProduction((int)ExpressionConstants.EXPRESSION, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_16, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.LITERAL_EXPRESSION), "LiteralExpression");
+            pattern = new ProductionPattern((int)ExpressionConstants.LITERAL_EXPRESSION,
+                "LiteralExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.INTEGER), 1, 1);
+            alt.AddToken((int)ExpressionConstants.INTEGER, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.REAL), 1, 1);
+            alt.AddToken((int)ExpressionConstants.REAL, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.STRING_LITERAL), 1, 1);
+            alt.AddToken((int)ExpressionConstants.STRING_LITERAL, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.BOOLEAN_LITERAL_EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.BOOLEAN_LITERAL_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.HEX_LITERAL), 1, 1);
+            alt.AddToken((int)ExpressionConstants.HEX_LITERAL, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.CHAR_LITERAL), 1, 1);
+            alt.AddToken((int)ExpressionConstants.CHAR_LITERAL, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.NULL_LITERAL), 1, 1);
+            alt.AddToken((int)ExpressionConstants.NULL_LITERAL, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.DATETIME), 1, 1);
+            alt.AddToken((int)ExpressionConstants.DATETIME, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.TIMESPAN), 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.BOOLEAN_LITERAL_EXPRESSION), "BooleanLiteralExpression");
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.TRUE), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.FALSE), 1, 1);
+            alt.AddToken((int)ExpressionConstants.TIMESPAN, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(ExpressionConstants.EXPRESSION_GROUP), "ExpressionGroup");
+            pattern = new ProductionPattern((int)ExpressionConstants.BOOLEAN_LITERAL_EXPRESSION,
+                "BooleanLiteralExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_PAREN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_PAREN), 1, 1);
+            alt.AddToken((int)ExpressionConstants.TRUE, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.FALSE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_1), "Subproduction1");
+            pattern = new ProductionPattern((int)ExpressionConstants.EXPRESSION_GROUP,
+                "ExpressionGroup");
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.LEFT_PAREN, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.EXPRESSION, 1, 1);
+            alt.AddToken((int)ExpressionConstants.RIGHT_PAREN, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_1,
+                "Subproduction1");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.XOR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.OR_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.XOR, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.OR_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_2), "Subproduction2");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_2,
+                "Subproduction2");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.OR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.AND_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.OR, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.AND_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_3), "Subproduction3");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_3,
+                "Subproduction3");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.AND), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.NOT_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.AND, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.NOT_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_4), "Subproduction4");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_4,
+                "Subproduction4");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IN), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.IN_TARGET_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.BETWEEN, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.LITERAL_EXPRESSION, 1, 1);
+            alt.AddToken((int)ExpressionConstants.ARGUMENT_SEPARATOR, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.LITERAL_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_5), "Subproduction5");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_5,
+                "Subproduction5");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.EQ), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.GT), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LT), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.GTE), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LTE), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.NE), 1, 1);
+            alt.AddToken((int)ExpressionConstants.IN, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.IN_TARGET_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_6), "Subproduction6");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_6,
+                "Subproduction6");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_5), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.SHIFT_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.EQ, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.GT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.LT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.GTE, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.LTE, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.NE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_7), "Subproduction7");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_7,
+                "Subproduction7");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.LEFT_SHIFT), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.RIGHT_SHIFT), 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_6, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.SHIFT_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_8), "Subproduction8");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_8,
+                "Subproduction8");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_7), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.ADDITIVE_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.LEFT_SHIFT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.RIGHT_SHIFT, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_9), "Subproduction9");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_9,
+                "Subproduction9");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ADD), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.SUB), 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_8, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.ADDITIVE_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_10), "Subproduction10");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_10,
+                "Subproduction10");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_9), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MULTIPLICATIVE_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.ADD, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.SUB, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_11), "Subproduction11");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_11,
+                "Subproduction11");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.MUL), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.DIV), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.MOD), 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_10, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.MULTIPLICATIVE_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_12), "Subproduction12");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_12,
+                "Subproduction12");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_11), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.POWER_EXPRESSION), 1, 1);
+            alt.AddToken((int)ExpressionConstants.MUL, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.DIV, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.MOD, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_13), "Subproduction13");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_13,
+                "Subproduction13");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.POWER), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.NEGATE_EXPRESSION), 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_12, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.POWER_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_14), "Subproduction14");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_14,
+                "Subproduction14");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.MEMBER_ACCESS_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.INDEX_EXPRESSION), 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_15), "Subproduction15");
-            pattern.Synthetic = true;
-            alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.DOT), 1, 1);
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.IDENTIFIER), 1, 1);
+            alt.AddToken((int)ExpressionConstants.POWER, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.NEGATE_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern(Convert.ToInt32(SynteticPatterns.SUBPRODUCTION_16), "Subproduction16");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_15,
+                "Subproduction15");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), 1, 1);
-            alt.AddProduction(Convert.ToInt32(ExpressionConstants.EXPRESSION), 1, 1);
+            alt.AddProduction((int)ExpressionConstants.MEMBER_ACCESS_EXPRESSION, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int)ExpressionConstants.INDEX_EXPRESSION, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_16,
+                "Subproduction16");
+            pattern.Synthetic = true;
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)ExpressionConstants.ARGUMENT_SEPARATOR, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
         }

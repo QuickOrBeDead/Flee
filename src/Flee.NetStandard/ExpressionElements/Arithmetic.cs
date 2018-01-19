@@ -14,12 +14,12 @@ namespace Flee.ExpressionElements
 {
     internal class ArithmeticElement : BinaryExpressionElement
     {
-        private static MethodInfo _ourPowerMethodInfo;
-        private static MethodInfo _ourStringConcatMethodInfo;
-        private static MethodInfo _ourObjectConcatMethodInfo;
+        private static readonly MethodInfo _ourPowerMethodInfo;
+        private static readonly MethodInfo _ourStringConcatMethodInfo;
+        private static readonly MethodInfo _ourObjectConcatMethodInfo;
         private BinaryArithmeticOperation _myOperation;
 
-        public ArithmeticElement()
+        static ArithmeticElement()
         {
             _ourPowerMethodInfo = typeof(Math).GetMethod("Pow", BindingFlags.Public | BindingFlags.Static);
             _ourStringConcatMethodInfo = typeof(string).GetMethod("Concat", new Type[] { typeof(string), typeof(string) }, null);

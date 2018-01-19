@@ -25,6 +25,7 @@ namespace Flee.Parsing
         private readonly Regex _myRegularEscapeRegex;
 
         private bool _myInUnaryNegate;
+
         internal FleeExpressionAnalyzer()
         {
             _myUnicodeEscapeRegex = new Regex("\\\\u[0-9a-f]{4}", RegexOptions.IgnoreCase);
@@ -170,20 +171,6 @@ namespace Flee.Parsing
             return node;
         }
 
-        public override Node ExitSpecialFunctionExpression(Production node)
-        {
-            this.AddFirstChildValue(node);
-            return node;
-        }
-
-        public override Node ExitIfExpression(Production node)
-        {
-            IList childValues = this.GetChildValues(node);
-            ConditionalElement op = new ConditionalElement((ExpressionElement)childValues[0], (ExpressionElement)childValues[1], (ExpressionElement)childValues[2]);
-            node.AddValue(op);
-            return node;
-        }
-
         public override Node ExitInExpression(Production node)
         {
             IList childValues = this.GetChildValues(node);
@@ -227,39 +214,6 @@ namespace Flee.Parsing
             return node;
         }
 
-        public override Node ExitCastExpression(Production node)
-        {
-            IList childValues = this.GetChildValues(node);
-            string[] destTypeParts = (string[])childValues[1];
-            bool isArray = (bool)childValues[2];
-            CastElement op = new CastElement((ExpressionElement)childValues[0], destTypeParts, isArray, _myServices);
-            node.AddValue(op);
-            return node;
-        }
-
-        public override Node ExitCastTypeExpression(Production node)
-        {
-            IList childValues = this.GetChildValues(node);
-            List<string> parts = new List<string>();
-
-            foreach (string part in childValues)
-            {
-                parts.Add(part);
-            }
-
-            bool isArray = false;
-
-            if (parts[parts.Count - 1] == "[]")
-            {
-                isArray = true;
-                parts.RemoveAt(parts.Count - 1);
-            }
-
-            node.AddValue(parts.ToArray());
-            node.AddValue(isArray);
-            return node;
-        }
-
         public override Node ExitMemberFunctionExpression(Production node)
         {
             this.AddFirstChildValue(node);
@@ -277,9 +231,19 @@ namespace Flee.Parsing
 
         public override Node ExitFunctionCallExpression(Production node)
         {
-            IList childValues = this.GetChildValues(node);
+            IList childValues = GetChildValues(node);
             string name = (string)childValues[0];
             childValues.RemoveAt(0);
+
+            if (string.Equals(name, "if", StringComparison.OrdinalIgnoreCase))
+            {
+                // TODO: Validate parameter count.
+
+                ConditionalElement op = new ConditionalElement((ExpressionElement)childValues[0], (ExpressionElement)childValues[1], (ExpressionElement)childValues[2]);
+                node.AddValue(op);
+                return node;
+            }
+
             ArgumentList args = new ArgumentList(childValues);
             FunctionCallElement funcCall = new FunctionCallElement(name, args);
             node.AddValue(funcCall);
@@ -302,6 +266,33 @@ namespace Flee.Parsing
         public override Node ExitLiteralExpression(Production node)
         {
             this.AddFirstChildValue(node);
+            return node;
+        }
+
+        public override Node ExitBetween(Token node)
+        {
+            return node;
+        }
+
+        public override Node ExitBetweenExpression(Production node)
+        {
+            IList childValues = GetChildValues(node);
+
+            if (childValues.Count > 1)
+            {
+                BetweenElement op = new BetweenElement((ExpressionElement)childValues[0], (ExpressionElement)childValues[1], (ExpressionElement)childValues[2]);
+
+                node.AddValue(op);
+            }
+            else if (childValues.Count == 1)
+            {
+                node.AddValue(childValues[0]);
+            }
+            else
+            {
+                Debug.Assert(false, "wrong number of chilren");
+            }
+
             return node;
         }
 

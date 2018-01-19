@@ -96,15 +96,15 @@ namespace Flee.Parsing
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.IN), "IN", TokenPattern.PatternType.STRING, "in");
             AddPattern(pattern);
 
+            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.BETWEEN), "BETWEEN", TokenPattern.PatternType.STRING, "between");
+            AddPattern(pattern);
+
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.DOT), "DOT", TokenPattern.PatternType.STRING, ".");
             AddPattern(pattern);
 
             customPattern = new ArgumentSeparatorPattern(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), "ARGUMENT_SEPARATOR", TokenPattern.PatternType.STRING, ",");
             customPattern.Initialize(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), "ARGUMENT_SEPARATOR", TokenPattern.PatternType.STRING, ",", _myContext);
             AddPattern(customPattern);
-
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.ARRAY_BRACES), "ARRAY_BRACES", TokenPattern.PatternType.STRING, "[]");
-            AddPattern(pattern);
 
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.LEFT_SHIFT), "LEFT_SHIFT", TokenPattern.PatternType.STRING, "<<");
             AddPattern(pattern);
@@ -148,12 +148,6 @@ namespace Flee.Parsing
             AddPattern(pattern);
 
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.DATETIME), "DATETIME", TokenPattern.PatternType.REGEXP, "#[^#]+#");
-            AddPattern(pattern);
-
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.IF), "IF", TokenPattern.PatternType.STRING, "if");
-            AddPattern(pattern);
-
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.CAST), "CAST", TokenPattern.PatternType.STRING, "cast");
             AddPattern(pattern);
         }
     }

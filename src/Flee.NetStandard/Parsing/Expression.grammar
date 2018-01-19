@@ -48,9 +48,9 @@ OR                           = "OR"
 XOR                          = "XOR"
 NOT			     = "NOT"
 IN			     = "in"
+BETWEEN			= "between"
 DOT			     = "."
 ARGUMENT_SEPARATOR	     = ","
-ARRAY_BRACES		     = "[]"
 LEFT_SHIFT		     = "<<"
 RIGHT_SHIFT		     = ">>"
 WHITESPACE                   = <<\s+>> %ignore%
@@ -68,10 +68,6 @@ NULL_LITERAL                 = "null"
 TIMESPAN			= <<##(\d+\.)?\d{2}:\d{2}(:\d{2}(\.\d{1,7})?)?#>>
 DATETIME			= <<#[^#]+#>>
 
-// Special Functions
-IF			     = "if"
-CAST			     = "cast"
-
 %productions%
 
 Expression = XorExpression;
@@ -82,7 +78,9 @@ OrExpression = AndExpression {OR AndExpression};
 
 AndExpression = NotExpression {AND NotExpression};
 
-NotExpression = NOT? InExpression;
+NotExpression = NOT? BetweenExpression;
+
+BetweenExpression = InExpression [BETWEEN LiteralExpression "," LiteralExpression];
 
 InExpression = CompareExpression [IN InTargetExpression];
 
@@ -106,19 +104,11 @@ MemberExpression = BasicExpression {MemberAccessExpression | IndexExpression};
 
 MemberAccessExpression = "." MemberFunctionExpression;
 
-BasicExpression = LiteralExpression | ExpressionGroup | MemberFunctionExpression | SpecialFunctionExpression;
+BasicExpression = LiteralExpression | ExpressionGroup | MemberFunctionExpression;
 
 MemberFunctionExpression = FieldPropertyExpression | FunctionCallExpression;
 
 FieldPropertyExpression = IDENTIFIER;
-
-SpecialFunctionExpression = IfExpression | CastExpression;
-
-IfExpression = IF "(" Expression "," Expression "," Expression ")";
-
-CastExpression = CAST "(" Expression "," CastTypeExpression ")";
-
-CastTypeExpression = IDENTIFIER {"." IDENTIFIER} ARRAY_BRACES?;
 
 IndexExpression = "[" ArgumentList "]";
 
