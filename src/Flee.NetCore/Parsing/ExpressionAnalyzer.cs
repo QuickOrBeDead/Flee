@@ -87,10 +87,6 @@ namespace Flee.Parsing
                     EnterOr((Token)node);
 
                     break;
-                case (int)ExpressionConstants.XOR:
-                    EnterXor((Token)node);
-
-                    break;
                 case (int)ExpressionConstants.NOT:
                     EnterNot((Token)node);
 
@@ -109,14 +105,6 @@ namespace Flee.Parsing
                     break;
                 case (int)ExpressionConstants.ARGUMENT_SEPARATOR:
                     EnterArgumentSeparator((Token)node);
-
-                    break;
-                case (int)ExpressionConstants.LEFT_SHIFT:
-                    EnterLeftShift((Token)node);
-
-                    break;
-                case (int)ExpressionConstants.RIGHT_SHIFT:
-                    EnterRightShift((Token)node);
 
                     break;
                 case (int)ExpressionConstants.INTEGER:
@@ -167,10 +155,6 @@ namespace Flee.Parsing
                     EnterExpression((Production)node);
 
                     break;
-                case (int)ExpressionConstants.XOR_EXPRESSION:
-                    EnterXorExpression((Production)node);
-
-                    break;
                 case (int)ExpressionConstants.OR_EXPRESSION:
                     EnterOrExpression((Production)node);
 
@@ -200,10 +184,6 @@ namespace Flee.Parsing
                     break;
                 case (int)ExpressionConstants.COMPARE_EXPRESSION:
                     EnterCompareExpression((Production)node);
-
-                    break;
-                case (int)ExpressionConstants.SHIFT_EXPRESSION:
-                    EnterShiftExpression((Production)node);
 
                     break;
                 case (int)ExpressionConstants.ADDITIVE_EXPRESSION:
@@ -332,9 +312,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.OR:
 
                     return ExitOr((Token)node);
-                case (int)ExpressionConstants.XOR:
-
-                    return ExitXor((Token)node);
                 case (int)ExpressionConstants.NOT:
 
                     return ExitNot((Token)node);
@@ -350,12 +327,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.ARGUMENT_SEPARATOR:
 
                     return ExitArgumentSeparator((Token)node);
-                case (int)ExpressionConstants.LEFT_SHIFT:
-
-                    return ExitLeftShift((Token)node);
-                case (int)ExpressionConstants.RIGHT_SHIFT:
-
-                    return ExitRightShift((Token)node);
                 case (int)ExpressionConstants.INTEGER:
 
                     return ExitInteger((Token)node);
@@ -392,9 +363,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.EXPRESSION:
 
                     return ExitExpression((Production)node);
-                case (int)ExpressionConstants.XOR_EXPRESSION:
-
-                    return ExitXorExpression((Production)node);
                 case (int)ExpressionConstants.OR_EXPRESSION:
 
                     return ExitOrExpression((Production)node);
@@ -419,9 +387,6 @@ namespace Flee.Parsing
                 case (int)ExpressionConstants.COMPARE_EXPRESSION:
 
                     return ExitCompareExpression((Production)node);
-                case (int)ExpressionConstants.SHIFT_EXPRESSION:
-
-                    return ExitShiftExpression((Production)node);
                 case (int)ExpressionConstants.ADDITIVE_EXPRESSION:
 
                     return ExitAdditiveExpression((Production)node);
@@ -484,10 +449,6 @@ namespace Flee.Parsing
                     ChildExpression(node, child);
 
                     break;
-                case (int)ExpressionConstants.XOR_EXPRESSION:
-                    ChildXorExpression(node, child);
-
-                    break;
                 case (int)ExpressionConstants.OR_EXPRESSION:
                     ChildOrExpression(node, child);
 
@@ -518,10 +479,6 @@ namespace Flee.Parsing
                     break;
                 case (int)ExpressionConstants.COMPARE_EXPRESSION:
                     ChildCompareExpression(node, child);
-
-                    break;
-                case (int)ExpressionConstants.SHIFT_EXPRESSION:
-                    ChildShiftExpression(node, child);
 
                     break;
                 case (int)ExpressionConstants.ADDITIVE_EXPRESSION:
@@ -750,15 +707,6 @@ namespace Flee.Parsing
             return node;
         }
 
-        public virtual void EnterXor(Token node)
-        {
-        }
-
-        public virtual Node ExitXor(Token node)
-        {
-            return node;
-        }
-
         public virtual void EnterNot(Token node)
         {
         }
@@ -809,24 +757,6 @@ namespace Flee.Parsing
         }
 
         public virtual Node ExitArrayBraces(Token node)
-        {
-            return node;
-        }
-
-        public virtual void EnterLeftShift(Token node)
-        {
-        }
-
-        public virtual Node ExitLeftShift(Token node)
-        {
-            return node;
-        }
-
-        public virtual void EnterRightShift(Token node)
-        {
-        }
-
-        public virtual Node ExitRightShift(Token node)
         {
             return node;
         }
@@ -944,20 +874,6 @@ namespace Flee.Parsing
             node.AddChild(child);
         }
 
-        public virtual void EnterXorExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitXorExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildXorExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
         public virtual void EnterOrExpression(Production node)
         {
         }
@@ -1066,20 +982,6 @@ namespace Flee.Parsing
         }
 
         public virtual void ChildCompareExpression(Production node, Node child)
-        {
-            node.AddChild(child);
-        }
-
-        public virtual void EnterShiftExpression(Production node)
-        {
-        }
-
-        public virtual Node ExitShiftExpression(Production node)
-        {
-            return node;
-        }
-
-        public virtual void ChildShiftExpression(Production node, Node child)
         {
             node.AddChild(child);
         }

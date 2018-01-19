@@ -37,12 +37,6 @@ namespace Flee.InternalTypes
         Or
     }
 
-    internal enum ShiftOperation
-    {
-        LeftShift,
-        RightShift
-    }
-
     internal delegate T ExpressionEvaluator<T>(object owner, ExpressionContext context, VariableCollection variables);
 
     internal abstract class CustomBinder : Binder

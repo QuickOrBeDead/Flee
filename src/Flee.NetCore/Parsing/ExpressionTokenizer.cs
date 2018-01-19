@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using Flee.Parsing;
+
 using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
 using Flee.PublicTypes;
 
@@ -87,9 +84,6 @@ namespace Flee.Parsing
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.OR), "OR", TokenPattern.PatternType.STRING, "OR");
             AddPattern(pattern);
 
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.XOR), "XOR", TokenPattern.PatternType.STRING, "XOR");
-            AddPattern(pattern);
-
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.NOT), "NOT", TokenPattern.PatternType.STRING, "NOT");
             AddPattern(pattern);
 
@@ -105,12 +99,6 @@ namespace Flee.Parsing
             customPattern = new ArgumentSeparatorPattern(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), "ARGUMENT_SEPARATOR", TokenPattern.PatternType.STRING, ",");
             customPattern.Initialize(Convert.ToInt32(ExpressionConstants.ARGUMENT_SEPARATOR), "ARGUMENT_SEPARATOR", TokenPattern.PatternType.STRING, ",", _myContext);
             AddPattern(customPattern);
-
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.LEFT_SHIFT), "LEFT_SHIFT", TokenPattern.PatternType.STRING, "<<");
-            AddPattern(pattern);
-
-            pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.RIGHT_SHIFT), "RIGHT_SHIFT", TokenPattern.PatternType.STRING, ">>");
-            AddPattern(pattern);
 
             pattern = new TokenPattern(Convert.ToInt32(ExpressionConstants.WHITESPACE), "WHITESPACE", TokenPattern.PatternType.REGEXP, "\\s+");
             pattern.Ignore = true;

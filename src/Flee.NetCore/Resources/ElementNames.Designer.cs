@@ -260,15 +260,6 @@ namespace Flee.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ShiftElement.
-        /// </summary>
-        internal static string ShiftElement {
-            get {
-                return ResourceManager.GetString("ShiftElement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SingleLiteralElement.
         /// </summary>
         internal static string SingleLiteralElement {
@@ -310,15 +301,6 @@ namespace Flee.Resources {
         internal static string UInt64LiteralElement {
             get {
                 return ResourceManager.GetString("UInt64LiteralElement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to XorElement.
-        /// </summary>
-        internal static string XorElement {
-            get {
-                return ResourceManager.GetString("XorElement", resourceCulture);
             }
         }
     }

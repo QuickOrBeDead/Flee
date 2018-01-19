@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -54,12 +53,6 @@ namespace Flee.Parsing
             return node;
         }
 
-        public override Node ExitXorExpression(Production node)
-        {
-            this.AddBinaryOp(node, typeof(XorElement));
-            return node;
-        }
-
         public override Node ExitOrExpression(Production node)
         {
             this.AddBinaryOp(node, typeof(AndOrElement));
@@ -81,12 +74,6 @@ namespace Flee.Parsing
         public override Node ExitCompareExpression(Production node)
         {
             this.AddBinaryOp(node, typeof(CompareElement));
-            return node;
-        }
-
-        public override Node ExitShiftExpression(Production node)
-        {
-            this.AddBinaryOp(node, typeof(ShiftElement));
             return node;
         }
 
@@ -557,27 +544,9 @@ namespace Flee.Parsing
             return node;
         }
 
-        public override Node ExitXor(Token node)
-        {
-            node.AddValue("Xor");
-            return node;
-        }
-
         public override Node ExitNot(Token node)
         {
             node.AddValue(string.Empty);
-            return node;
-        }
-
-        public override Node ExitLeftShift(Token node)
-        {
-            node.AddValue(ShiftOperation.LeftShift);
-            return node;
-        }
-
-        public override Node ExitRightShift(Token node)
-        {
-            node.AddValue(ShiftOperation.RightShift);
             return node;
         }
 

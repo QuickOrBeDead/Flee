@@ -31,6 +31,9 @@ namespace Flee.Console
             IGenericExpression<bool> ge = context2.CompileGeneric<bool>("(a = 100 OR b > 0) AND c <> 2");
             bool result2 = ge.Evaluate();
 
+            IGenericExpression<decimal> ge1 = context2.CompileGeneric<decimal>("1/2");
+            decimal result3 = ge1.Evaluate();
+
             System.Console.ReadKey();
         }
     }

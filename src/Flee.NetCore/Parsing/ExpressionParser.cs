@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Flee.Parsing;
+﻿using System.IO;
+
 using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
 using Flee.PublicTypes;
 
@@ -28,10 +24,7 @@ namespace Flee.Parsing
             SUBPRODUCTION_10 = 3010,
             SUBPRODUCTION_11 = 3011,
             SUBPRODUCTION_12 = 3012,
-            SUBPRODUCTION_13 = 3013,
-            SUBPRODUCTION_14 = 3014,
-            SUBPRODUCTION_15 = 3015,
-            SUBPRODUCTION_16 = 3016
+            SUBPRODUCTION_13 = 3013
         }
 
         public ExpressionParser(TextReader input, Analyzer analyzer, ExpressionContext context) : base(new ExpressionTokenizer(input, context), analyzer)
@@ -57,15 +50,7 @@ namespace Flee.Parsing
             pattern = new ProductionPattern((int)ExpressionConstants.EXPRESSION,
                 "Expression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)ExpressionConstants.XOR_EXPRESSION, 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern((int)ExpressionConstants.XOR_EXPRESSION,
-                "XorExpression");
-            alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.OR_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_1, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -73,7 +58,7 @@ namespace Flee.Parsing
                 "OrExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.AND_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_2, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_1, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -81,7 +66,7 @@ namespace Flee.Parsing
                 "AndExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.NOT_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_3, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_2, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -97,7 +82,7 @@ namespace Flee.Parsing
                 "BetweenExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.IN_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_4, 0, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_3, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -105,7 +90,7 @@ namespace Flee.Parsing
                 "InExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.COMPARE_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_5, 0, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_4, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -131,16 +116,8 @@ namespace Flee.Parsing
             pattern = new ProductionPattern((int)ExpressionConstants.COMPARE_EXPRESSION,
                 "CompareExpression");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)ExpressionConstants.SHIFT_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_7, 0, -1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern((int)ExpressionConstants.SHIFT_EXPRESSION,
-                "ShiftExpression");
-            alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.ADDITIVE_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_9, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_6, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -148,7 +125,7 @@ namespace Flee.Parsing
                 "AdditiveExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.MULTIPLICATIVE_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_11, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_8, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -156,7 +133,7 @@ namespace Flee.Parsing
                 "MultiplicativeExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.POWER_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_13, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_10, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -164,7 +141,7 @@ namespace Flee.Parsing
                 "PowerExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.NEGATE_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_14, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_11, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -180,7 +157,7 @@ namespace Flee.Parsing
                 "MemberExpression");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.BASIC_EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_15, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_12, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -245,7 +222,7 @@ namespace Flee.Parsing
                 "ArgumentList");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.EXPRESSION, 1, 1);
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_16, 0, -1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_13, 0, -1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -303,8 +280,8 @@ namespace Flee.Parsing
                 "Subproduction1");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken((int)ExpressionConstants.XOR, 1, 1);
-            alt.AddProduction((int)ExpressionConstants.OR_EXPRESSION, 1, 1);
+            alt.AddToken((int)ExpressionConstants.OR, 1, 1);
+            alt.AddProduction((int)ExpressionConstants.AND_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -312,22 +289,13 @@ namespace Flee.Parsing
                 "Subproduction2");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddToken((int)ExpressionConstants.OR, 1, 1);
-            alt.AddProduction((int)ExpressionConstants.AND_EXPRESSION, 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_3,
-                "Subproduction3");
-            pattern.Synthetic = true;
-            alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.AND, 1, 1);
             alt.AddProduction((int)ExpressionConstants.NOT_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_4,
-                "Subproduction4");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_3,
+                "Subproduction3");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.BETWEEN, 1, 1);
@@ -337,8 +305,8 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_5,
-                "Subproduction5");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_4,
+                "Subproduction4");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.IN, 1, 1);
@@ -346,8 +314,8 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_6,
-                "Subproduction6");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_5,
+                "Subproduction5");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.EQ, 1, 1);
@@ -369,37 +337,17 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_7,
-                "Subproduction7");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_6,
+                "Subproduction6");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_6, 1, 1);
-            alt.AddProduction((int)ExpressionConstants.SHIFT_EXPRESSION, 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_8,
-                "Subproduction8");
-            pattern.Synthetic = true;
-            alt = new ProductionPatternAlternative();
-            alt.AddToken((int)ExpressionConstants.LEFT_SHIFT, 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddToken((int)ExpressionConstants.RIGHT_SHIFT, 1, 1);
-            pattern.AddAlternative(alt);
-            AddPattern(pattern);
-
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_9,
-                "Subproduction9");
-            pattern.Synthetic = true;
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_8, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_5, 1, 1);
             alt.AddProduction((int)ExpressionConstants.ADDITIVE_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_10,
-                "Subproduction10");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_7,
+                "Subproduction7");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.ADD, 1, 1);
@@ -409,17 +357,17 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_11,
-                "Subproduction11");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_8,
+                "Subproduction8");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_10, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_7, 1, 1);
             alt.AddProduction((int)ExpressionConstants.MULTIPLICATIVE_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_12,
-                "Subproduction12");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_9,
+                "Subproduction9");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.MUL, 1, 1);
@@ -432,17 +380,17 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_13,
-                "Subproduction13");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_10,
+                "Subproduction10");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_12, 1, 1);
+            alt.AddProduction((int)SynteticPatterns.SUBPRODUCTION_9, 1, 1);
             alt.AddProduction((int)ExpressionConstants.POWER_EXPRESSION, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_14,
-                "Subproduction14");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_11,
+                "Subproduction11");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.POWER, 1, 1);
@@ -450,8 +398,8 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_15,
-                "Subproduction15");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_12,
+                "Subproduction12");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int)ExpressionConstants.MEMBER_ACCESS_EXPRESSION, 1, 1);
@@ -461,8 +409,8 @@ namespace Flee.Parsing
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_16,
-                "Subproduction16");
+            pattern = new ProductionPattern((int)SynteticPatterns.SUBPRODUCTION_13,
+                "Subproduction13");
             pattern.Synthetic = true;
             alt = new ProductionPatternAlternative();
             alt.AddToken((int)ExpressionConstants.ARGUMENT_SEPARATOR, 1, 1);

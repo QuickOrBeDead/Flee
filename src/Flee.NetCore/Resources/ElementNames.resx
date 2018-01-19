@@ -183,9 +183,6 @@
   <data name="RootExpressionElement" xml:space="preserve">
     <value>RootExpressionElement</value>
   </data>
-  <data name="ShiftElement" xml:space="preserve">
-    <value>ShiftElement</value>
-  </data>
   <data name="SingleLiteralElement" xml:space="preserve">
     <value>SingleLiteralElement</value>
   </data>
@@ -200,8 +197,5 @@
   </data>
   <data name="UInt64LiteralElement" xml:space="preserve">
     <value>UInt64LiteralElement</value>
-  </data>
-  <data name="XorElement" xml:space="preserve">
-    <value>XorElement</value>
   </data>
 </root>
