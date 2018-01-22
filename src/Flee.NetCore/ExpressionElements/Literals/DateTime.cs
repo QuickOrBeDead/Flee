@@ -20,7 +20,7 @@ namespace Flee.ExpressionElements.Literals
         {
             ExpressionParserOptions options = context.ParserOptions;
 
-            if (DateTime.TryParseExact(image, options.DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _myValue) == false)
+            if (DateTime.TryParseExact(image, options.DateTimeFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _myValue) == false)
             {
                 base.ThrowCompileException(CompileErrorResourceKeys.CannotParseType, CompileExceptionReason.InvalidFormat, typeof(DateTime).Name);
             }

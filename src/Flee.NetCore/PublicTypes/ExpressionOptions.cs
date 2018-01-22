@@ -49,7 +49,7 @@ namespace Flee.PublicTypes
             ExpressionParserOptions po = _myOwner.ParserOptions;
             po.DecimalSeparator = Convert.ToChar(ci.NumberFormat.NumberDecimalSeparator);
             po.FunctionArgumentSeparator = Convert.ToChar(ci.TextInfo.ListSeparator);
-            po.DateTimeFormat = ci.DateTimeFormat.ShortDatePattern;
+            po.DateTimeFormats = new []{ $"{ci.DateTimeFormat.ShortDatePattern} {ci.DateTimeFormat.LongTimePattern}", ci.DateTimeFormat.ShortDatePattern };
         }
 
         #endregion

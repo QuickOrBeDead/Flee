@@ -61,7 +61,7 @@ namespace Flee.PublicTypes
 
         private void InitializeProperties()
         {
-            this.DateTimeFormat = "dd/MM/yyyy";
+            this.DateTimeFormats = new []{ "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy" };
             this.RequireDigitsBeforeDecimalPoint = false;
             this.DecimalSeparator = '.';
             this.FunctionArgumentSeparator = ',';
@@ -71,9 +71,9 @@ namespace Flee.PublicTypes
 
         #region "Properties - Public"
 
-        public string DateTimeFormat
+        public string[] DateTimeFormats
         {
-            get { return _myProperties.GetValue<string>("DateTimeFormat"); }
+            get { return _myProperties.GetValue<string[]>("DateTimeFormat"); }
             set { _myProperties.SetValue("DateTimeFormat", value); }
         }
 
