@@ -119,6 +119,12 @@ namespace Flee.InternalTypes
             _myIlGenerator.Emit(op, arg);
         }
 
+        public void Emit(OpCode op, LocalBuilder arg)
+        {
+            this.RecordOpcode(op);
+            _myIlGenerator.Emit(op, arg);
+        }
+
         public void MarkLabel(Label lbl)
         {
             _myIlGenerator.MarkLabel(lbl);
