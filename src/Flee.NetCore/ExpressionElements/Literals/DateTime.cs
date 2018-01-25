@@ -16,6 +16,14 @@ namespace Flee.ExpressionElements.Literals
     internal class DateTimeLiteralElement : LiteralElement
     {
         private DateTime _myValue;
+
+        private static readonly ConstructorInfo _dateTimeConstructorInfo;
+
+        static DateTimeLiteralElement()
+        {
+            _dateTimeConstructorInfo = typeof(DateTime).GetConstructor(new[] { typeof(long) });
+        }
+
         public DateTimeLiteralElement(string image, ExpressionContext context)
         {
             ExpressionParserOptions options = context.ParserOptions;
@@ -34,9 +42,7 @@ namespace Flee.ExpressionElements.Literals
 
             LiteralElement.EmitLoad(_myValue.Ticks, ilg);
 
-            ConstructorInfo ci = typeof(DateTime).GetConstructor(new Type[] { typeof(long) });
-
-            ilg.Emit(OpCodes.Call, ci);
+            ilg.Emit(OpCodes.Call, _dateTimeConstructorInfo);
 
             Utility.EmitLoadLocal(ilg, index);
         }

@@ -117,22 +117,6 @@ namespace Flee.ExpressionElements
             else
             {
                 EmitCustomInMethod(ilg, services);
-                //return;
-
-                //BranchManager bm = new BranchManager();
-                //bm.GetLabel("endLabel", ilg);
-                //bm.GetLabel("trueTerminal", ilg);
-
-                //// Do a fake emit to get branch positions
-                //FleeILGenerator ilgTemp = this.CreateTempFleeILGenerator(ilg);
-                //Utility.SyncFleeILGeneratorLabels(ilg, ilgTemp);
-
-                //this.EmitListIn(ilgTemp, services, bm);
-
-                //bm.ComputeBranches();
-
-                //// Do the real emit
-                //this.EmitListIn(ilg, services, bm);
             }
         }
 

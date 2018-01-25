@@ -27,13 +27,7 @@ namespace Flee.ExpressionElements.Literals.Real
 
         private static ConstructorInfo GetConstructor()
         {
-            Type[] types = {
-            typeof(Int32),
-            typeof(Int32),
-            typeof(Int32),
-            typeof(bool),
-            typeof(byte)
-        };
+            Type[] types = { typeof(Int32), typeof(Int32), typeof(Int32), typeof(bool), typeof(byte) };
             return typeof(decimal).GetConstructor(BindingFlags.Instance | BindingFlags.Public, null, CallingConventions.Any, types, null);
         }
 
@@ -47,7 +41,7 @@ namespace Flee.ExpressionElements.Literals.Real
                 decimal value = options.ParseDecimal(image);
                 return new DecimalLiteralElement(value);
             }
-            catch (OverflowException ex)
+            catch (OverflowException)
             {
                 element.OnParseOverflow(image);
                 return null;
@@ -75,6 +69,6 @@ namespace Flee.ExpressionElements.Literals.Real
             Utility.EmitLoadLocal(ilg, index);
         }
 
-        public override System.Type ResultType => typeof(decimal);
+        public override Type ResultType => typeof(decimal);
     }
 }

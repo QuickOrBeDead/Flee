@@ -152,6 +152,7 @@ namespace Flee.InternalTypes
                     break;
                 case TypeCode.Int16:
                 case TypeCode.UInt16:
+                case TypeCode.Char:
                     ilg.Emit(OpCodes.Stelem_I2);
                     break;
                 case TypeCode.Int32:
@@ -169,6 +170,17 @@ namespace Flee.InternalTypes
                     ilg.Emit(OpCodes.Stelem_R8);
                     break;
                 case TypeCode.Object:
+                    // TimeSpan EmitArrayStore bugfix. TimeSpan TypeCode returns Object but Emit(OpCodes.Stelem, elementType) must be called
+                    if (elementType == typeof(TimeSpan))
+                    {
+                        ilg.Emit(OpCodes.Stelem, elementType);
+                    }
+                    else
+                    {
+                        ilg.Emit(OpCodes.Stelem_Ref);
+                    }
+
+                    break;
                 case TypeCode.String:
                     ilg.Emit(OpCodes.Stelem_Ref);
                     break;
