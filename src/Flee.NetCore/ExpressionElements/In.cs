@@ -4,82 +4,75 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Reflection;
-using Flee.ExpressionElements;
+
 using Flee.ExpressionElements.Base;
 
 using Flee.InternalTypes;
 using Flee.PublicTypes;
 using Flee.Resources;
 
-
 namespace Flee.ExpressionElements
 {
-    internal class InElement : ExpressionElement
+    internal sealed class InElement : ExpressionElement
     {
         // Element we will search for
-        private ExpressionElement MyOperand;
+        private readonly ExpressionElement _myOperand;
         // Elements we will compare against
-        private List<ExpressionElement> MyArguments;
+        private readonly List<ExpressionElement> _myArguments;
         // Collection to look in
-        private ExpressionElement MyTargetCollectionElement;
+        private readonly ExpressionElement _myTargetCollectionElement;
         // Type of the collection
+        private Type _myTargetCollectionType;
 
-        private Type MyTargetCollectionType;
+        private static readonly MethodInfo s_InMethodInfo;
+
+        static InElement()
+        {
+            s_InMethodInfo = typeof(CustomMethods).GetMethod("IsIn", BindingFlags.Public | BindingFlags.Static);
+        }
+
         // Initialize for searching a list of values
         public InElement(ExpressionElement operand, IList listElements)
         {
-            MyOperand = operand;
+            _myOperand = operand;
 
             ExpressionElement[] arr = new ExpressionElement[listElements.Count];
             listElements.CopyTo(arr, 0);
 
-            MyArguments = new List<ExpressionElement>(arr);
-            this.ResolveForListSearch();
+            _myArguments = new List<ExpressionElement>(arr);
         }
 
         // Initialize for searching a collection
         public InElement(ExpressionElement operand, ExpressionElement targetCollection)
         {
-            MyOperand = operand;
-            MyTargetCollectionElement = targetCollection;
-            this.ResolveForCollectionSearch();
-        }
-
-        private void ResolveForListSearch()
-        {
-            CompareElement ce = new CompareElement();
-
-            // Validate that our operand is comparable to all elements in the list
-            foreach (ExpressionElement argumentElement in MyArguments)
-            {
-                ce.Initialize(MyOperand, argumentElement, LogicalCompareOperation.Equal);
-                ce.Validate();
-            }
+            _myOperand = operand;
+            _myTargetCollectionElement = targetCollection;
+            ResolveForCollectionSearch();
         }
 
         private void ResolveForCollectionSearch()
         {
             // Try to find a collection type
-            MyTargetCollectionType = this.GetTargetCollectionType();
+            _myTargetCollectionType = this.GetTargetCollectionType();
 
-            if (MyTargetCollectionType == null)
+            if (_myTargetCollectionType == null)
             {
-                base.ThrowCompileException(CompileErrorResourceKeys.SearchArgIsNotKnownCollectionType, CompileExceptionReason.TypeMismatch, MyTargetCollectionElement.ResultType.Name);
+                ThrowCompileException(CompileErrorResourceKeys.SearchArgIsNotKnownCollectionType, CompileExceptionReason.TypeMismatch, _myTargetCollectionElement.ResultType.Name);
             }
 
             // Validate that the operand type is compatible with the collection
-            MethodInfo mi = this.GetCollectionContainsMethod();
+            MethodInfo mi = GetCollectionContainsMethod();
             ParameterInfo p1 = mi.GetParameters()[0];
 
-            if (ImplicitConverter.EmitImplicitConvert(MyOperand.ResultType, p1.ParameterType, null) == false)
+            if (ImplicitConverter.EmitImplicitConvert(_myOperand.ResultType, p1.ParameterType, null) == false)
             {
-                base.ThrowCompileException(CompileErrorResourceKeys.OperandNotConvertibleToCollectionType, CompileExceptionReason.TypeMismatch, MyOperand.ResultType.Name, p1.ParameterType.Name);
+                ThrowCompileException(CompileErrorResourceKeys.OperandNotConvertibleToCollectionType, CompileExceptionReason.TypeMismatch, _myOperand.ResultType.Name, p1.ParameterType.Name);
             }
         }
 
         private Type GetTargetCollectionType()
         {
-            Type collType = MyTargetCollectionElement.ResultType;
+            Type collType = _myTargetCollectionElement.ResultType;
 
             // Try to see if the collection is a generic ICollection or IDictionary
             Type[] interfaces = collType.GetInterfaces();
@@ -93,18 +86,19 @@ namespace Flee.ExpressionElements
 
                 Type genericTypeDef = interfaceType.GetGenericTypeDefinition();
 
-                if (object.ReferenceEquals(genericTypeDef, typeof(ICollection<>)) | object.ReferenceEquals(genericTypeDef, typeof(IDictionary<,>)))
+                if (ReferenceEquals(genericTypeDef, typeof(ICollection<>)) | ReferenceEquals(genericTypeDef, typeof(IDictionary<,>)))
                 {
                     return interfaceType;
                 }
             }
 
             // Try to see if it is a regular IList or IDictionary
-            if (typeof(IList<>).IsAssignableFrom(collType) == true)
+            if (typeof(IList<>).IsAssignableFrom(collType))
             {
                 return typeof(IList<>);
             }
-            else if (typeof(IDictionary<,>).IsAssignableFrom(collType) == true)
+
+            if (typeof(IDictionary<,>).IsAssignableFrom(collType))
             {
                 return typeof(IDictionary<,>);
             }
@@ -115,27 +109,30 @@ namespace Flee.ExpressionElements
 
         public override void Emit(FleeILGenerator ilg, IServiceProvider services)
         {
-            if ((MyTargetCollectionType != null))
+            if ((_myTargetCollectionType != null))
             {
                 this.EmitCollectionIn(ilg, services);
 
             }
             else
             {
-                BranchManager bm = new BranchManager();
-                bm.GetLabel("endLabel", ilg);
-                bm.GetLabel("trueTerminal", ilg);
+                EmitCustomInMethod(ilg, services);
+                //return;
 
-                // Do a fake emit to get branch positions
-                FleeILGenerator ilgTemp = this.CreateTempFleeILGenerator(ilg);
-                Utility.SyncFleeILGeneratorLabels(ilg, ilgTemp);
+                //BranchManager bm = new BranchManager();
+                //bm.GetLabel("endLabel", ilg);
+                //bm.GetLabel("trueTerminal", ilg);
 
-                this.EmitListIn(ilgTemp, services, bm);
+                //// Do a fake emit to get branch positions
+                //FleeILGenerator ilgTemp = this.CreateTempFleeILGenerator(ilg);
+                //Utility.SyncFleeILGeneratorLabels(ilg, ilgTemp);
 
-                bm.ComputeBranches();
+                //this.EmitListIn(ilgTemp, services, bm);
 
-                // Do the real emit
-                this.EmitListIn(ilg, services, bm);
+                //bm.ComputeBranches();
+
+                //// Do the real emit
+                //this.EmitListIn(ilg, services, bm);
             }
         }
 
@@ -146,11 +143,11 @@ namespace Flee.ExpressionElements
             ParameterInfo p1 = mi.GetParameters()[0];
 
             // Load the collection
-            MyTargetCollectionElement.Emit(ilg, services);
+            _myTargetCollectionElement.Emit(ilg, services);
             // Load the argument
-            MyOperand.Emit(ilg, services);
+            _myOperand.Emit(ilg, services);
             // Do an implicit convert if necessary
-            ImplicitConverter.EmitImplicitConvert(MyOperand.ResultType, p1.ParameterType, ilg);
+            ImplicitConverter.EmitImplicitConvert(_myOperand.ResultType, p1.ParameterType, ilg);
             // Call the contains method
             ilg.Emit(OpCodes.Callvirt, mi);
         }
@@ -159,68 +156,90 @@ namespace Flee.ExpressionElements
         {
             string methodName = "Contains";
 
-            if (MyTargetCollectionType.IsGenericType == true && object.ReferenceEquals(MyTargetCollectionType.GetGenericTypeDefinition(), typeof(IDictionary<,>)))
+            if (_myTargetCollectionType.IsGenericType && ReferenceEquals(_myTargetCollectionType.GetGenericTypeDefinition(), typeof(IDictionary<,>)))
             {
                 methodName = "ContainsKey";
             }
 
-            return MyTargetCollectionType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+            return _myTargetCollectionType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
         }
 
-        private void EmitListIn(FleeILGenerator ilg, IServiceProvider services, BranchManager bm)
+        private void EmitCustomInMethod(FleeILGenerator ilg, IServiceProvider services)
         {
-            CompareElement ce = new CompareElement();
-            Label endLabel = bm.FindLabel("endLabel");
-            Label trueTerminal = bm.FindLabel("trueTerminal");
+            int arraySize = _myArguments.Count;
+            Type arrayElementType = _myOperand.ResultType;
+            Type arrayType = arrayElementType.MakeArrayType();
 
-            // Cache the operand since we will be comparing against it a lot
-            LocalBuilder lb = ilg.DeclareLocal(MyOperand.ResultType);
-            int targetIndex = lb.LocalIndex;
+            // Load the array length
+            LdcI4(ilg, arraySize);
 
-            MyOperand.Emit(ilg, services);
-            Utility.EmitStoreLocal(ilg, targetIndex);
+            // Create the array
+            ilg.Emit(OpCodes.Newarr, arrayElementType);
 
-            // Wrap our operand in a local shim
-            LocalBasedElement targetShim = new LocalBasedElement(MyOperand, targetIndex);
-
-            // Emit the compares
-            foreach (ExpressionElement argumentElement in MyArguments)
+            // Store the new array in a unique local and remember the index
+            LocalBuilder local = ilg.DeclareLocal(arrayType);
+            int arrayLocalIndex = local.LocalIndex;
+            Utility.EmitStoreLocal(ilg, arrayLocalIndex);
+           
+            for (int i = 0; i < _myArguments.Count; i++)
             {
-                ce.Initialize(targetShim, argumentElement, LogicalCompareOperation.Equal);
-                ce.Emit(ilg, services);
+                ExpressionElement argumentElement = _myArguments[i];
 
-                EmitBranchToTrueTerminal(ilg, trueTerminal, bm);
+                // Load the array
+                Utility.EmitLoadLocal(ilg, arrayLocalIndex);
+
+                // Load the index
+                LdcI4(ilg, i);
+
+                EmitChild(argumentElement, arrayElementType, ilg, services);
+
+                // Store it into the array
+                Utility.EmitArrayStore(ilg, arrayElementType);
             }
 
-            ilg.Emit(OpCodes.Ldc_I4_0);
-            ilg.Emit(OpCodes.Br_S, endLabel);
+            EmitChild(_myOperand, arrayElementType, ilg, services);
 
-            bm.MarkLabel(ilg, trueTerminal);
-            ilg.MarkLabel(trueTerminal);
+            // Load the array
+            Utility.EmitLoadLocal(ilg, arrayLocalIndex);
 
-            ilg.Emit(OpCodes.Ldc_I4_1);
+            MethodInfo genericMethod = s_InMethodInfo.MakeGenericMethod(arrayElementType);
 
-            bm.MarkLabel(ilg, endLabel);
-            ilg.MarkLabel(endLabel);
+            ilg.Emit(OpCodes.Call, genericMethod);
         }
 
-        private static void EmitBranchToTrueTerminal(FleeILGenerator ilg, Label trueTerminal, BranchManager bm)
+        private static void EmitChild(ExpressionElement child, Type resultType, FleeILGenerator ilg, IServiceProvider services)
         {
-            if (ilg.IsTemp == true)
+            child.Emit(ilg, services);
+            bool converted = ImplicitConverter.EmitImplicitConvert(child.ResultType, resultType, ilg);
+            Debug.Assert(converted, "convert failed");
+        }
+
+        private static void LdcI4(FleeILGenerator ilg, int index)
+        {
+            switch (index)
             {
-                bm.AddBranch(ilg, trueTerminal);
-                ilg.Emit(OpCodes.Brtrue_S, trueTerminal);
-            }
-            else if (bm.IsLongBranch(ilg, trueTerminal) == false)
-            {
-                ilg.Emit(OpCodes.Brtrue_S, trueTerminal);
-            }
-            else
-            {
-                ilg.Emit(OpCodes.Brtrue, trueTerminal);
+                case 0: ilg.Emit(OpCodes.Ldc_I4_0); break;
+                case 1: ilg.Emit(OpCodes.Ldc_I4_1); break;
+                case 2: ilg.Emit(OpCodes.Ldc_I4_2); break;
+                case 3: ilg.Emit(OpCodes.Ldc_I4_3); break;
+                case 4: ilg.Emit(OpCodes.Ldc_I4_4); break;
+                case 5: ilg.Emit(OpCodes.Ldc_I4_5); break;
+                case 6: ilg.Emit(OpCodes.Ldc_I4_6); break;
+                case 7: ilg.Emit(OpCodes.Ldc_I4_7); break;
+                case 8: ilg.Emit(OpCodes.Ldc_I4_8); break;
+                default:
+                    if (index < 256)
+                    {
+                        ilg.Emit(OpCodes.Ldc_I4_S, (byte)index);
+                    }
+                    else
+                    {
+                        ilg.Emit(OpCodes.Ldc_I4, (ushort)index);
+                    }
+                    break;
             }
         }
 
-        public override System.Type ResultType => typeof(bool);
+        public override Type ResultType => typeof(bool);
     }
 }
